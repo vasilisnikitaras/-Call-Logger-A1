@@ -33,7 +33,7 @@
 
     .container {
       max-width: 700px;
-      margin: 80px auto 40px;
+      margin: 80px auto 60px;
       background: rgba(255,255,255,0.95);
       padding: 25px;
       border-radius: 12px;
@@ -99,15 +99,16 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      padding: 10px 14px;
+      padding: 6px 10px;
       background-color: var(--accent-color);
       color: white;
       border: none;
-      border-radius: 30px;
-      font-size: 14px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      border-radius: 20px;
+      font-size: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
       cursor: pointer;
       z-index: 1000;
+      line-height: 1;
     }
 
     .toggle-switch {
@@ -151,6 +152,13 @@
       transform: translateX(24px);
     }
 
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: gray;
+    }
+
     @media screen and (max-width: 768px) {
       .container {
         margin: 20px;
@@ -159,40 +167,24 @@
       table, th, td {
         font-size: 14px;
       }
+
+      #topBtn {
+        font-size: 11px;
+      }
     }
   </style>
-
-<style>
-#topBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 8px 12px;
-  background-color: #00bcd4;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 13px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  cursor: pointer;
-  z-index: 1000;
-  line-height: 1;
-}
-</style>
-
-
-  
 </head>
 <body>
-  <!-- Toggle Switch 🌗 -->
+  <!-- 🌗 Toggle Switch -->
   <label class="toggle-switch">
     <input type="checkbox" id="modeToggle" />
     <span class="slider"></span>
   </label>
 
-  <!-- Back to Top 🔝 -->
+  <!-- 🔝 Back to Top Button -->
   <button onclick="scrollToTop()" id="topBtn">⬆ Top</button>
 
+  <!-- 📞 Main Container -->
   <div class="container" id="mainContainer">
     <h2>📞 Call Logger</h2>
     <div id="notification">✅ Call saved successfully!</div>
@@ -221,6 +213,11 @@
       <tbody></tbody>
     </table>
   </div>
+
+  <!-- 🤝 Footer -->
+  <footer>
+    © All rights reserved. Created by Vasileios Nikitaras & Copilot 🤝
+  </footer>
 
   <script>
     const logs = [];
@@ -270,14 +267,8 @@
       document.getElementById("mainContainer").classList.toggle("dark", this.checked);
     });
 
-    // Set default mode
+    // Default mode
     document.body.classList.add("light-mode");
   </script>
-
-<footer style="text-align:center; padding: 20px; font-size: 14px; color: gray;">
-  © All rights reserved. Created by Vasileios Nikitaras & Copilot 🤝
-</footer>
-
-  
 </body>
 </html>
