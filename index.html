@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Call Logger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    form {
+      display: grid;
+      gap: 10px;
+    }
+    input, textarea, button {
+      padding: 10px;
+      font-size: 1em;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    #notification {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📞 Call Logger</h2>
+
+    <div id="notification">✅ Call saved successfully!</div>
+
+    <form id="callForm">
+      <input type="text" id="callerName" placeholder="Name" required>
+      <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+      <input type="datetime-local" id="callTime" required>
+      <input type="number" id="callDuration" placeholder="Duration (min)" required>
+      <textarea id="callComment" placeholder="Comment (optional)"></textarea>
+      <button type="submit">Add Call</button>
+    </form>
+
+    <button onclick="downloadLogs()">📄 Download Log (.txt)</button>
+
+    <table id="callTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Time</th>
+          <th>Duration</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const logs = [];
+
+    document.getElementById("callForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("callerName").value;
+      const phone = document.getElementById("phoneNumber").value;
+      const time = document.getElementById("callTime").value;
+      const duration = document.getElementById("callDuration").value;
+      const comment = document.getElementById("callComment").value;
+
+      const entry = `Name: ${name}, Phone: ${phone}, Time: ${time}, Duration: ${duration} min, Comment: ${comment}`;
+      logs.push(entry);
+
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${name}</td><td>${phone}</td><td>${time}</td><td>${duration} min</td><td>${comment}</td>`;
+      document.querySelector("#callTable tbody").appendChild(row);
+
+      document.getElementById("notification").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("notification").style.display = "none";
+      }, 2000);
+
+      e.target.reset();
+    });
+
+    function downloadLogs() {
+      const blob = new Blob([logs.join("\n")], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "call_logs.txt";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
